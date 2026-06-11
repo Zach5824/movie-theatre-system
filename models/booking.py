@@ -31,4 +31,18 @@ class Booking:
     def seats_booked(self):
         return self._seats_booked
 
-    
+    @seats_booked.setter
+    def seats_booked(self, value):
+        try:
+            val = int(value)
+        except (ValueError, TypeError):
+            raise ValueError("Seats must be a valid integer.")
+        if val <= 0:
+            raise ValueError("Must book at least 1 seat.")
+        self._seats_booked = val
+
+    def to_dict(self):
+        return {"id": self.id, "screening_id": self.screening_id, "customer_name": self.customer_name, "seats_booked": self.seats_booked}
+
+    def __repr__(self):
+        return f"<Booking {self.id}: {self.customer_name} ({self.seats_booked} seats)>"
