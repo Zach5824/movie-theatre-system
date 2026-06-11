@@ -17,3 +17,18 @@ class Booking:
 
         Booking.all_bookings.append(self)
 
+    @property
+    def customer_name(self):
+        return self._customer_name
+
+    @customer_name.setter
+    def customer_name(self, value):
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError("Customer name cannot be empty.")
+        self._customer_name = value.strip()
+
+    @property
+    def seats_booked(self):
+        return self._seats_booked
+
+    
