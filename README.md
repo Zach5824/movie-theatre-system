@@ -34,6 +34,7 @@ movie_theater_cli/
 ├── main.py                       # Application entrance & argparse subcommands
 ├── requirements.txt              # Project third-party dependencies (tabulate)
 └── README.md                     # Technical project documentation
+
 ⚙️ Installation and Setup
 Follow these operational steps to configure your environment and run the workspace application:
 
@@ -92,7 +93,8 @@ List All Transaction Records:
 
 Bash
 python main.py list-bookings
-📋 User Stories Satisfied
+
+📋 User Stories Satisfied:
 As an Admin, I can add a movie profile with details like title, genre, and duration so it becomes available within our theater configurations for active scheduling.
 
 As an Admin, I can view structured listings of movies, screenings, and bookings to track hall asset allocations and current showtime occupancy.
