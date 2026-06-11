@@ -47,4 +47,19 @@ class Movie:
     def __repr__(self):
         return f"<Movie {self.id}: {self.title} ({self.duration_mins} mins)>"
 
-    
+    @classmethod
+    def find_by_id(cls, movie_id):
+        return next((m for m in cls.all_movies if m.id == movie_id), None)
+
+    @classmethod
+    def delete_movie(cls, movie_id):
+        movie = cls.find_by_id(movie_id)
+        if not movie:
+            return False
+        cls.all_movies.remove(movie)
+        
+        from models.screening import Screening
+        screenings_to_remove = [s for s in Screening.all_screenings if s.movie_id == movie_id]
+        for screening in screenings_to_remove:
+            Screening.delete_screening(screening.id)
+        return True
