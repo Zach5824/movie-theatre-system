@@ -41,4 +41,10 @@ class Movie:
             raise ValueError("Duration must be greater than 0.")
         self._duration_mins = val
 
+    def to_dict(self):
+        return {"id": self.id, "title": self.title, "genre": self.genre, "duration_mins": self.duration_mins}
+
+    def __repr__(self):
+        return f"<Movie {self.id}: {self.title} ({self.duration_mins} mins)>"
+
     
