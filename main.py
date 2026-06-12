@@ -39,4 +39,48 @@ def main():
 
     args = parser.parse_args()
 
-    
+    try:
+        if args.command == "add-movie":
+            m = Movie(args.title, args.genre, args.duration)
+            print(f"Success: Registered {m}")
+        
+        elif args.command == "list-movies":
+            if not Movie.all_movies: print("No entries found.")
+            for movie in Movie.all_movies: print(f"ID {movie.id}: {movie.title} | Genre: {movie.genre} | {movie.duration_mins} Mins")
+
+        elif args.command == "delete-movie":
+            if Movie.delete_movie(args.id): print(f"Success: Dropped Movie ID {args.id} and cascading dependencies.")
+            else: print(f"Error: Movie ID {args.id} does not exist.")
+
+        elif args.command == "add-screening":
+            if not Movie.find_by_id(args.movie_id):
+                print(f"Error: Movie reference key ID {args.movie_id} does not exist.")
+                return
+            s = Screening(args.movie_id, args.hall, args.time)
+            print(f"Success: Scheduled showtime: {s}")
+
+        elif args.command == "list-screenings":
+            if not Screening.all_screenings: print("Schedule clear.")
+            for scr in Screening.all_screenings:
+                mv = Movie.find_by_id(scr.movie_id)
+                m_title = mv.title if mv else "Unknown Movie"
+                print(f"Showtime ID {scr.id}: '{m_title}' in Hall {scr.hall_number} at {scr.time}")
+
+        elif args.command == "book-ticket":
+            if not Screening.find_by_id(args.screening_id):
+                print(f"Error: Screening event ID {args.screening_id} not found.")
+                return
+            b = Booking(args.screening_id, args.name, args.seats)
+            print(f"Success: Finalized booking transaction: {b}")
+
+        elif args.command == "list-bookings":
+            if not Booking.all_bookings: print("No transactions recorded.")
+            for bk in Booking.all_bookings: print(f"Ticket ID {bk.id}: {bk.customer_name} booked {bk.seats_booked} seats (Event Screening Reference ID: {bk.screening_id})")
+
+        save_theater_data()
+
+    except ValueError as e:
+        print(f"Validation Failure: {e}")
+
+if __name__ == "__main__":
+    main()
