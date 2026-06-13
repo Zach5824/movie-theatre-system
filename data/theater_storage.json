@@ -21,6 +21,18 @@
             "screening_id": 1,
             "customer_name": "Zach",
             "seats_booked": 3
+        },
+        {
+            "id": 2,
+            "screening_id": 1,
+            "customer_name": "Kerry",
+            "seats_booked": 2
+        },
+        {
+            "id": 3,
+            "screening_id": 1,
+            "customer_name": "Caleb",
+            "seats_booked": 4
         }
     ]
 }
